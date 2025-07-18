@@ -1,0 +1,51 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container mt-5">
+    <h2>Welcome, <%= user.username %>!</h2>
+    <p>Email: <%= user.email %></p>
+
+    <!-- User's Listings Section -->
+    <!-- <h3>Your Listings</h3>
+    <ul>
+        <% if (!listings || listings.length === 0) { %>
+            <li>You haven't listed any properties yet.</li>
+        <% } else { %>
+            <% listings.forEach(listing => { %>
+                <li><%= listing.title %></li> ✅ Show listing name only -->
+            <!-- <% }) %>
+        <% } %>
+    </ul> -->
+
+    <!-- User's Bookings Section -->
+    <h3 class="mt-5">Your Bookings</h3>
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Listing Name</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (!bookings || bookings.length === 0) { %>
+                <tr>
+                    <td colspan="4" class="text-center">No bookings yet.</td>
+                </tr>
+            <% } else { %>
+                <% bookings.forEach(booking => { %>
+                    <tr>
+                        <td><%= booking.listing ? booking.listing.title : "Unknown Listing" %></td>
+                        <td><%= booking.startDate.toDateString() %></td>
+                        <td><%= booking.endDate.toDateString() %></td>
+                        <td>
+                            <form action="/booking/<%= booking._id %>?_method=DELETE" method="POST">
+                                <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                            </form>
+                        </td>
+                    </tr>
+                <% }) %>
+            <% } %>
+        </tbody>
+    </table>
+</div>
